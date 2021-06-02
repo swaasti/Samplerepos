@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+
+namespace WebApplication3
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        DataView dv;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            dv = (DataView)SqlDataSource1.Select(DataSourceSelectArguments.Empty);
+            TextBox4.Text = dv[0]["Iid"].ToString();
+            TextBox1.Text = dv[0]["iname"].ToString();
+            TextBox2.Text = dv[0]["price"].ToString();
+            TextBox3.Text = dv[0]["qty"].ToString();
+        }
+        static int counter;
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            if (counter < dv.Count)
+            {
+                counter++;
+                TextBox4.Text = dv[counter]["Iid"].ToString();
+                TextBox1.Text = dv[counter]["iname"].ToString();
+                TextBox2.Text = dv[counter]["price"].ToString();
+                TextBox3.Text = dv[counter]["qty"].ToString();
+            }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter--;
+                TextBox4.Text = dv[counter]["Iid"].ToString();
+                TextBox1.Text = dv[counter]["iname"].ToString();
+                TextBox2.Text = dv[counter]["price"].ToString();
+                TextBox3.Text = dv[counter]["qty"].ToString();
+            }
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            SqlDataSource1.Insert();
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            SqlDataSource1.Delete();
+        }
+
+        protected void TextBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            SqlDataSource1.Update();
+        }
+    }
+}
